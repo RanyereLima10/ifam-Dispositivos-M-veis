@@ -3651,12 +3651,12 @@ export default function App() {
   const lugaresTuristicos = [
     {
       id: '1',
-      nome: 'Encontro das Águas',
+      nome: 'Ruínas do Paricatuba',
       descricao:
-        'Um dos fenômenos naturais mais conhecidos da Amazônia, onde as águas dos rios Negro e Solimões se encontram.',
+        'As ruínas de Paricatuba são um patrimônio histórico do Amazonas.',
       imagem:
-        'https://cdn-hweb.hsystem.com.br/5873d325c19a4207cc40b87c/35464b3be0044f5a8a689a425b5247a6.jpg',
-      destino: 'Encontro das Águas, Manaus, Amazonas',
+        'https://tse2.mm.bing.net/th/id/OIP.12Ky5vi46JXj7AvHdZVDkAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Ruínas, paricatuba, Iranduba',
     },
 
     {
@@ -3711,7 +3711,7 @@ export default function App() {
       descricao:
         'Transporte terrestre utilizado para deslocamentos entre Iranduba, Manaus e outras localidades.',
       imagem:
-        'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80',
+        'https://tse3.mm.bing.net/th/id/OIP.O207H35bc1dz-hIcB99pBgHaIF?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
       destino: 'Iranduba, Amazonas, Brasil',
     },
 
@@ -3801,7 +3801,7 @@ export default function App() {
       id: '1',
       nome: 'Tambaqui Assado',
       descricao:
-        'Peixe muito apreciado no Amazonas, tradicionalmente preparado assado ou na brasa.',
+        'Peixe muito apreciado no Amazonas, tradicionalmente preparado assado na brasa.',
       imagem:
         'https://i.ytimg.com/vi/acxLC9spJww/hqdefault.jpg',
     },
@@ -3842,7 +3842,7 @@ export default function App() {
     const destinoCodificado = encodeURIComponent(destino);
 
     const url =
-      `https://www.google.com/maps/dir/?api=1&destination=${destinoCodificado}`;
+      `https://www.bing.com/maps/directions?FORM=HDRSC6&style=r&rtp=%7Epos.-3.275820255279541_-60.186744689941406_Iranduba%252C%2520Amazonas_Iranduba%252C%2520Amazonas_&mode=t&cp=-3.275880%7E-60.186735&lvl=15.7${destinoCodificado}`;
 
     try {
       const podeAbrir = await Linking.canOpenURL(url);
