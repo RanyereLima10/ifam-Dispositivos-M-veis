@@ -1385,9 +1385,9 @@ INSTITUTO FEDERAL DO AMAZONAS – IFAM CAMPUS IRANDUBA
 DISCIPLINA: Dispositivos Móveis
 PROFESSOR: Ranyere Lima
 ALUNO(A): DAVID YURI
-DATA:  12/ 08 /2026
+DATA:  26/ 08 /2026
 Bimestre: 3º Bimestre
-assuto:implementar ia no projeto;Consumo de Agua
+assuto:aula assincrona
 **********************************************************************/
 
 
@@ -1885,3 +1885,1192 @@ DATA:  12/ 08 /2026
 Bimestre: 3º Bimestre
 assuto:implementar ia no projeto;Consumo de Agua
 **********************************************************************/
+
+import React, { useState } from 'react';
+
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Alert,
+  Linking,
+} from 'react-native';
+
+export default function App() {
+  const [tela, setTela] = useState('inicio');
+
+  // =====================================================
+  // PONTOS TURÍSTICOS
+  // =====================================================
+
+  const lugaresTuristicos = [
+    {
+      id: '1',
+      nome: 'Encontro das Águas',
+      descricao:
+        'Um dos fenômenos naturais mais conhecidos da Amazônia, onde as águas dos rios Negro e Solimões se encontram.',
+      imagem:
+        'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80',
+      destino: 'Encontro das Águas, Manaus, Amazonas',
+    },
+
+    {
+      id: '2',
+      nome: 'Cachoeira do Castanho',
+      descricao:
+        'Atrativo natural da região de Iranduba, com água, floresta e uma bela paisagem amazônica.',
+      imagem:
+        'https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=900&q=80',
+      destino: 'Cachoeira do Castanho, Iranduba, Amazonas',
+    },
+
+    {
+      id: '3',
+      nome: 'Praia do Açutuba',
+      descricao:
+        'Uma das praias de água doce conhecidas da região, ideal para aproveitar a paisagem e a natureza amazônica.',
+      imagem:
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+      destino: 'Praia do Açutuba, Iranduba, Amazonas',
+    },
+
+    {
+      id: '4',
+      nome: 'Praia do Japonês',
+      descricao:
+        'Praia de água doce da região amazônica, procurada para lazer e contato com a natureza.',
+      imagem:
+        'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80',
+      destino: 'Praia do Japonês, Iranduba, Amazonas',
+    },
+
+    {
+      id: '5',
+      nome: 'Lago Janauari',
+      descricao:
+        'Área de beleza natural conhecida pela floresta, pelos passeios de barco e pelas famosas vitórias-régias.',
+      imagem:
+        'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
+      destino: 'Lago Janauari, Iranduba, Amazonas',
+    },
+  ];
+
+  // =====================================================
+  // TRANSPORTES
+  // =====================================================
+
+  const transportes = [
+    {
+      id: '1',
+      nome: 'Ônibus',
+      descricao:
+        'Transporte terrestre utilizado para deslocamentos entre Iranduba, Manaus e outras localidades.',
+      imagem:
+        'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80',
+      destino: 'Iranduba, Amazonas, Brasil',
+    },
+
+    {
+      id: '2',
+      nome: 'Barco',
+      descricao:
+        'Transporte fluvial muito utilizado na região amazônica para deslocamentos pelos rios.',
+      imagem:
+        'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80',
+      destino: 'Porto de São Raimundo, Manaus, Amazonas',
+    },
+  ];
+
+  // =====================================================
+  // HORÁRIOS
+  // =====================================================
+
+  const horarios = [
+    {
+      id: '1',
+      tipo: 'Ônibus',
+      horario: '07:00',
+    },
+    {
+      id: '2',
+      tipo: 'Ônibus',
+      horario: '10:00',
+    },
+    {
+      id: '3',
+      tipo: 'Ônibus',
+      horario: '14:00',
+    },
+    {
+      id: '4',
+      tipo: 'Ônibus',
+      horario: '17:00',
+    },
+    {
+      id: '5',
+      tipo: 'Barco',
+      horario: '08:00',
+    },
+    {
+      id: '6',
+      tipo: 'Barco',
+      horario: '14:00',
+    },
+    {
+      id: '7',
+      tipo: 'Barco',
+      horario: '17:00',
+    },
+  ];
+
+  // =====================================================
+  // PONTOS DE EMBARQUE
+  // =====================================================
+
+  const pontosEmbarque = [
+    {
+      id: '1',
+      nome: 'Terminal de ônibus',
+      descricao:
+        'Ponto de referência para embarque de passageiros em ônibus.',
+      destino: 'Iranduba, Amazonas, Brasil',
+      tipo: 'Ônibus',
+    },
+
+    {
+      id: '2',
+      nome: 'Porto de São Raimundo',
+      descricao:
+        'Porto localizado em Manaus, utilizado para transporte de passageiros e cargas.',
+      destino: 'Porto de São Raimundo, Manaus, Amazonas',
+      tipo: 'Barco',
+    },
+  ];
+
+  // =====================================================
+  // COMIDAS REGIONAIS
+  // =====================================================
+
+  const comidas = [
+    {
+      id: '1',
+      nome: 'Tambaqui Assado',
+      descricao:
+        'Peixe muito apreciado no Amazonas, tradicionalmente preparado assado ou na brasa.',
+      imagem:
+        'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80',
+    },
+
+    {
+      id: '2',
+      nome: 'Tacacá',
+      descricao:
+        'Prato tradicional amazônico preparado com tucupi, jambu, goma de mandioca e camarão.',
+      imagem:
+        'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80',
+    },
+
+    {
+      id: '3',
+      nome: 'Pirarucu',
+      descricao:
+        'Um dos grandes peixes da Amazônia, utilizado em diferentes pratos da culinária regional.',
+      imagem:
+        'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=900&q=80',
+    },
+
+    {
+      id: '4',
+      nome: 'Tapioca',
+      descricao:
+        'Preparação feita com goma de mandioca, muito consumida no café da manhã e em lanches.',
+      imagem:
+        'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80',
+    },
+  ];
+
+  // =====================================================
+  // ABRIR MAPA
+  // =====================================================
+
+  const abrirRota = async (destino) => {
+    const destinoCodificado = encodeURIComponent(destino);
+
+    const url =
+      `https://www.google.com/maps/dir/?api=1&destination=${destinoCodificado}`;
+
+    try {
+      const podeAbrir = await Linking.canOpenURL(url);
+
+      if (podeAbrir) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(
+          'Mapa',
+          'Não foi possível abrir o mapa neste dispositivo.'
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        'Erro',
+        'Não foi possível abrir a localização.'
+      );
+    }
+  };
+
+  // =====================================================
+  // HORÁRIOS
+  // =====================================================
+
+  const verHorarios = () => {
+    Alert.alert(
+      'Horários de transporte',
+      'ÔNIBUS\n\n' +
+        '07:00\n' +
+        '10:00\n' +
+        '14:00\n' +
+        '17:00\n\n' +
+        'BARCO\n\n' +
+        '08:00\n' +
+        '14:00\n' +
+        '17:00\n\n' +
+        'Horários demonstrativos. Consulte o responsável pelo transporte para confirmar os horários reais.'
+    );
+  };
+
+  // =====================================================
+  // TELA INICIAL
+  // =====================================================
+
+  if (tela === 'inicio') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Iranduba Turismo
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Descubra as belezas do Amazonas!
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.welcome}>
+            Bem-vindo! 🌿
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça os principais pontos turísticos,
+            comidas regionais e opções de transporte
+            da região de Iranduba.
+          </Text>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('pontos')}
+          >
+            <Text style={styles.buttonText}>
+              🗺️ Pontos Turísticos
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('transporte')}
+          >
+            <Text style={styles.buttonText}>
+              🚌 Transporte
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('comidas')}
+          >
+            <Text style={styles.buttonText}>
+              🍽️ Comidas Regionais
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('sobre')}
+          >
+            <Text style={styles.buttonText}>
+              🌴 Sobre Iranduba
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.info}>
+          <Text style={styles.infoTitle}>
+            Explore Iranduba 🌿
+          </Text>
+
+          <Text style={styles.infoText}>
+            Natureza, rios, praias, cachoeiras,
+            gastronomia e cultura amazônica
+            esperando por você.
+          </Text>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // PONTOS TURÍSTICOS
+  // =====================================================
+
+  if (tela === 'pontos') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Pontos Turísticos
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Lugares para conhecer
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Lugares para visitar
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça alguns dos lugares que podem
+            fazer parte da sua viagem.
+          </Text>
+
+          {lugaresTuristicos.map((lugar) => (
+            <View
+              key={lugar.id}
+              style={styles.turismoCard}
+            >
+              <Image
+                source={{ uri: lugar.imagem }}
+                style={styles.turismoImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.turismoConteudo}>
+                <Text style={styles.placeTitle}>
+                  {lugar.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {lugar.descricao}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(lugar.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver rota no mapa
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // TRANSPORTE
+  // =====================================================
+
+  if (tela === 'transporte') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Transporte
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Ônibus e barco
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Transporte da região
+          </Text>
+
+          <Text style={styles.description}>
+            Confira as opções de transporte
+            terrestre e fluvial.
+          </Text>
+
+          {transportes.map((transporte) => (
+            <View
+              key={transporte.id}
+              style={styles.transporteCard}
+            >
+              <Image
+                source={{ uri: transporte.imagem }}
+                style={styles.transporteImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.transporteConteudo}>
+                <Text style={styles.placeTitle}>
+                  {transporte.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {transporte.descricao}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(transporte.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver localização
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <Text style={styles.sectionTitle}>
+            Horários de saída
+          </Text>
+
+          <View style={styles.horariosBox}>
+            {horarios.map((item) => (
+              <View
+                key={item.id}
+                style={styles.horarioLinha}
+              >
+                <Text style={styles.horarioTipo}>
+                  {item.tipo}
+                </Text>
+
+                <Text style={styles.horarioHora}>
+                  {item.horario}
+                </Text>
+              </View>
+            ))}
+
+            <Text style={styles.avisoHorario}>
+              Horários demonstrativos. Consulte os
+              responsáveis pelo transporte antes da viagem.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.smallButton}
+            onPress={verHorarios}
+          >
+            <Text style={styles.buttonText}>
+              🕐 Ver horários
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.sectionTitle}>
+            Pontos de embarque
+          </Text>
+
+          {pontosEmbarque.map((ponto) => (
+            <View
+              key={ponto.id}
+              style={styles.embarqueCard}
+            >
+              <View style={styles.embarqueIcon}>
+                <Text style={styles.embarqueEmoji}>
+                  {ponto.tipo === 'Ônibus'
+                    ? '🚌'
+                    : '🚤'}
+                </Text>
+              </View>
+
+              <View style={styles.embarqueConteudo}>
+                <Text style={styles.placeTitle}>
+                  {ponto.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {ponto.descricao}
+                </Text>
+
+                <Text style={styles.tipoTransporte}>
+                  Transporte: {ponto.tipo}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(ponto.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver localização
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <View style={styles.infoInterna}>
+            <Text style={styles.infoTitle}>
+              ⚠️ Informações
+            </Text>
+
+            <Text style={styles.infoText}>
+              Os horários e locais podem variar.
+              Confirme as informações antes de viajar.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // COMIDAS REGIONAIS
+  // =====================================================
+
+  if (tela === 'comidas') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Comidas Regionais
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Sabores da Amazônia
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Pratos típicos 🍽️
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça alguns sabores tradicionais
+            da culinária amazônica.
+          </Text>
+
+          {comidas.map((comida) => (
+            <View
+              key={comida.id}
+              style={styles.comidaCard}
+            >
+              <Image
+                source={{ uri: comida.imagem }}
+                style={styles.comidaImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.comidaConteudo}>
+                <Text style={styles.comidaNome}>
+                  {comida.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {comida.descricao}
+                </Text>
+              </View>
+            </View>
+          ))}
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // SOBRE IRANDUBA
+  // =====================================================
+
+  if (tela === 'sobre') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Sobre Iranduba
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Conheça nossa região 🌴
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+
+          {/* FOTO DE IRANDUBA */}
+          <Image
+            source={{
+              uri:
+                'https://www.ferias.tur.br/fotogr/110978/cidadedeiranduba-fotojosalberto/iranduba/',
+            }}
+            style={styles.sobreImagem}
+            resizeMode="cover"
+          />
+
+          <Text style={styles.sobreTitulo}>
+            Bem-vindo a Iranduba! 💚
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            Iranduba é um município do Amazonas
+            localizado na Região Metropolitana de Manaus.
+            A cidade é cercada por paisagens naturais
+            e possui uma forte relação com os rios,
+            a floresta e a cultura amazônica.
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            O município possui praias de água doce,
+            cachoeiras, áreas de floresta, comunidades
+            e diferentes experiências de turismo
+            de natureza.
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            A região também se destaca pela produção
+            agrícola, pelo artesanato e pela gastronomia
+            baseada em peixes e outros produtos
+            amazônicos.
+          </Text>
+
+          <Text style={styles.sectionTitle}>
+            🌿 O que você encontra em Iranduba
+          </Text>
+
+          <View style={styles.destaquesContainer}>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🌳
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Natureza
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Florestas e belas paisagens amazônicas.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🏖️
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Praias
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Praias de água doce para aproveitar.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🚤
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Rios
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Passeios e experiências pelos rios.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🍽️
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Gastronomia
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Sabores tradicionais da Amazônia.
+              </Text>
+            </View>
+
+          </View>
+
+          <View style={styles.janauariBox}>
+            <Text style={styles.janauariTitulo}>
+              🌿 Destaque: Lago Janauari
+            </Text>
+
+            <Text style={styles.janauariTexto}>
+              O Lago Janauari é um dos destaques
+              naturais da região. O local reúne
+              floresta, rios e belas paisagens,
+              proporcionando contato com a natureza
+              amazônica.
+            </Text>
+          </View>
+
+          <View style={styles.fraseBox}>
+            <Text style={styles.frase}>
+              Conheça Iranduba, viva a Amazônia
+              e ajude a preservar esse lugar! 🌱💚
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
+    );
+  }
+
+  return null;
+}
+
+// =====================================================
+// ESTILOS
+// =====================================================
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E8F5E9',
+  },
+
+  contentContainer: {
+    paddingBottom: 40,
+  },
+
+  header: {
+    backgroundColor: '#176B3A',
+    paddingTop: 55,
+    paddingBottom: 30,
+    paddingHorizontal: 20,
+  },
+
+  logo: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+
+  subtitle: {
+    color: '#DDF5E3',
+    fontSize: 16,
+    marginTop: 8,
+  },
+
+  card: {
+    backgroundColor: '#FFFFFF',
+    margin: 18,
+    padding: 20,
+    borderRadius: 18,
+    elevation: 4,
+  },
+
+  welcome: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 10,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 15,
+  },
+
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#444444',
+    marginBottom: 20,
+  },
+
+  texto: {
+    fontSize: 17,
+    lineHeight: 27,
+    color: '#333333',
+    marginBottom: 15,
+  },
+
+  button: {
+    backgroundColor: '#218C4B',
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 12,
+    alignItems: 'center',
+  },
+
+  smallButton: {
+    backgroundColor: '#218C4B',
+    padding: 12,
+    borderRadius: 10,
+    marginTop: 12,
+    alignItems: 'center',
+  },
+
+  backButton: {
+    backgroundColor: '#145A32',
+    padding: 15,
+    borderRadius: 12,
+    marginTop: 25,
+    alignItems: 'center',
+  },
+
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  info: {
+    margin: 18,
+    padding: 20,
+    backgroundColor: '#CDEFD5',
+    borderRadius: 18,
+  },
+
+  infoInterna: {
+    marginTop: 18,
+    padding: 16,
+    backgroundColor: '#DDF3E2',
+    borderRadius: 14,
+  },
+
+  infoTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#145A32',
+    marginBottom: 8,
+  },
+
+  infoText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#333333',
+  },
+
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginTop: 15,
+    marginBottom: 12,
+  },
+
+  placeTitle: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 8,
+  },
+
+  placeText: {
+    fontSize: 15,
+    lineHeight: 21,
+    color: '#444444',
+  },
+
+  // PONTOS TURÍSTICOS
+
+  turismoCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 20,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+
+  turismoImagem: {
+    width: '100%',
+    height: 220,
+    backgroundColor: '#DDEFE1',
+  },
+
+  turismoConteudo: {
+    padding: 16,
+  },
+
+  // TRANSPORTE
+
+  transporteCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 20,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+
+  transporteImagem: {
+    width: '100%',
+    height: 220,
+    backgroundColor: '#DDEFE1',
+  },
+
+  transporteConteudo: {
+    padding: 16,
+  },
+
+  horariosBox: {
+    backgroundColor: '#E8F5E9',
+    padding: 16,
+    borderRadius: 14,
+    marginBottom: 15,
+  },
+
+  horarioLinha: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+
+  horarioTipo: {
+    fontSize: 15,
+    color: '#333333',
+  },
+
+  horarioHora: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#176B3A',
+  },
+
+  avisoHorario: {
+    fontSize: 13,
+    color: '#666666',
+    marginTop: 8,
+    lineHeight: 19,
+  },
+
+  embarqueCard: {
+    flexDirection: 'row',
+    backgroundColor: '#F1F8F3',
+    padding: 15,
+    borderRadius: 14,
+    marginBottom: 15,
+  },
+
+  embarqueIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#CDEFD5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+
+  embarqueEmoji: {
+    fontSize: 23,
+  },
+
+  embarqueConteudo: {
+    flex: 1,
+  },
+
+  tipoTransporte: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginTop: 10,
+  },
+
+  // COMIDAS
+
+  comidaCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 22,
+    overflow: 'hidden',
+    elevation: 4,
+  },
+
+  comidaImagem: {
+    width: '100%',
+    height: 230,
+    backgroundColor: '#DDEFE1',
+  },
+
+  comidaConteudo: {
+    padding: 16,
+  },
+
+  comidaNome: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 8,
+  },
+
+  // SOBRE IRANDUBA
+
+  sobreImagem: {
+    width: '100%',
+    height: 240,
+    borderRadius: 15,
+    marginBottom: 18,
+    backgroundColor: '#DDEFE1',
+  },
+
+  sobreTitulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 12,
+  },
+
+  sobreTexto: {
+    fontSize: 16,
+    lineHeight: 25,
+    color: '#444444',
+    marginBottom: 14,
+  },
+
+  destaquesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+
+  destaqueCard: {
+    width: '48%',
+    backgroundColor: '#E8F5E9',
+    padding: 15,
+    borderRadius: 15,
+    marginBottom: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#C8E6C9',
+  },
+
+  destaqueEmoji: {
+    fontSize: 32,
+    marginBottom: 7,
+  },
+
+  destaqueTitulo: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 5,
+  },
+
+  destaqueTexto: {
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    color: '#555555',
+  },
+
+  janauariBox: {
+    backgroundColor: '#D5F0DA',
+    padding: 18,
+    borderRadius: 16,
+    marginTop: 18,
+    borderLeftWidth: 5,
+    borderLeftColor: '#176B3A',
+  },
+
+  janauariTitulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#145A32',
+    marginBottom: 8,
+  },
+
+  janauariTexto: {
+    fontSize: 15,
+    lineHeight: 23,
+    color: '#3D3D3D',
+  },
+
+  fraseBox: {
+    backgroundColor: '#176B3A',
+    padding: 20,
+    borderRadius: 16,
+    marginTop: 18,
+  },
+
+  frase: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    lineHeight: 26,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});
