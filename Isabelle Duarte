@@ -1254,5 +1254,2953 @@ export default function App() {
   );
 }
 
+**********************************************************************/
+INSTITUTO FEDERAL DO AMAZONAS – CAMPUS IRANDUBA
+DISCIPLINA: Dispositivos Móveis
+PROFESSOR: Ranyere Lima
+ALUNO(A): Isabelle Christine de Jesus Duarte
+DATA:  29/ 07 /2026
+Bimestre: 3º Bimestre
+**********************************************************************/
 
+Questão 1 – Cadastro Inteligente de Usuários
+Uma startup está desenvolvendo um aplicativo de eventos acadêmicos. Durante o cadastro, o
+sistema deve validar automaticamente o nome, e-mail e idade do participante.
+Desenvolva uma aplicação móvel que:
+Possua campos para Nome, E-mail e Idade;
+Valide se todos os campos foram preenchidos;
+Informe mensagens de erro caso algum dado seja inválido;
+Após clicar no botão Cadastrar, apresente uma mensagem personalizada com os
+dados do participante.
+Considere aspectos relacionados aos eventos de clique e validação da interface.
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [idade, setIdade] = useState("");
+
+
+  function cadastrar() {
+    if (nome === "" || email === "" || idade === "") {
+      Alert.alert("Erro", "Preencha todos os campos!");
+      return;
+    }
+
+
+    if (!email.includes("@")) {
+      Alert.alert("Erro", "E-mail inválido!");
+      return;
+    }
+
+
+    if (parseInt(idade) <= 0) {
+      Alert.alert("Erro", "Idade inválida!");
+      return;
+    }
+
+
+    Alert.alert(
+      "Cadastro realizado!",
+      `Nome: ${nome}\nE-mail: ${email}\nIdade: ${idade} anos`
+    );
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Cadastro de Usuário</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Idade"
+        value={idade}
+        onChangeText={setIdade}
+        keyboardType="numeric"
+      />
+
+
+      <Button title="Cadastrar" onPress={cadastrar} />
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+  },
+});
+
+
+
+
+Questão 2 – Controle de Consumo de Água
+Uma prefeitura deseja incentivar hábitos sustentáveis através de um aplicativo.
+Desenvolva uma aplicação que permita:
+Informar a quantidade de litros consumidos por dia;
+Ao pressionar um botão, calcular o consumo semanal;
+
+Classificar o consumo em:
+o Econômico;
+o Moderado;
+o Elevado;
+Exibir o resultado na tela.
+
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet
+} from 'react-native';
+
+
+
+
+export default function App() {
+  const [litros, setLitros] = useState('');
+  const [resultado, setResultado] = useState('');
+
+
+
+
+  function calcularConsumo() {
+    if (litros === '') {
+      setResultado('Informe a quantidade de litros.');
+      return;
+    }
+
+
+
+
+    const consumoDia = parseFloat(litros);
+
+
+
+
+    if (isNaN(consumoDia) || consumoDia <= 0) {
+      setResultado('Valor inválido.');
+      return;
+    }
+
+
+
+
+    const semanal = consumoDia * 7;
+    let classificacao = '';
+
+
+
+
+    if (semanal <= 350) {
+      classificacao = 'Econômico';
+    } else if (semanal <= 700) {
+      classificacao = 'Moderado';
+    } else {
+      classificacao = 'Elevado';
+    }
+
+
+
+
+    setResultado(
+      `Consumo semanal: ${semanal.toFixed(1)} litros\nClassificação: ${classificacao}`
+    );
+  }
+
+
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>
+        Controle de Consumo de Água
+      </Text>
+
+
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Litros consumidos por dia"
+        keyboardType="numeric"
+        value={litros}
+        onChangeText={setLitros}
+      />
+
+
+
+
+      <Button
+        title="Calcular Consumo"
+        onPress={calcularConsumo}
+      />
+
+
+
+
+      <Text style={styles.resultado}>
+        {resultado}
+      </Text>
+    </View>
+  );
+}
+
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+     backgroundColor: '#7995E8',
+  },
+
+
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+     padding: 20,
+     backgroundColor: '#3B9BDB',
+  },
+
+
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 20,
+     backgroundColor: '#3B9BDB',
+  },
+
+
+
+
+  resultado: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: 'center',
+     padding: 20,
+     backgroundColor: '#3B9BDB',
+  },
+});
+
+
+
+
+Questão 3 – Calculadora de IMC
+Uma clínica de saúde pretende disponibilizar um aplicativo para cálculo do Índice de Massa
+Corporal.
+Sua aplicação deverá:
+Receber peso e altura;
+Executar o cálculo do IMC;
+Informar automaticamente a classificação correspondente;
+Utilizar um botão para iniciar o cálculo.
+Considere boas práticas na interação entre usuário e interface.
+import React, { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+
+
+export default function App() {
+  const [peso, setPeso] = useState("");
+  const [altura, setAltura] = useState("");
+  const [resultado, setResultado] = useState("");
+
+
+  function calcularIMC() {
+    if (peso === "" || altura === "") {
+      setResultado("Preencha todos os campos.");
+      return;
+    }
+
+
+    const p = parseFloat(peso);
+    const a = parseFloat(altura);
+
+
+    if (isNaN(p) || isNaN(a) || p <= 0 || a <= 0) {
+      setResultado("Valores inválidos.");
+      return;
+    }
+
+
+    const imc = p / (a * a);
+    let classificacao = "";
+
+
+    if (imc < 18.5) {
+      classificacao = "Abaixo do peso";
+    } else if (imc < 25) {
+      classificacao = "Peso normal";
+    } else if (imc < 30) {
+      classificacao = "Sobrepeso";
+    } else if (imc < 35) {
+      classificacao = "Obesidade Grau I";
+    } else if (imc < 40) {
+      classificacao = "Obesidade Grau II";
+    } else {
+      classificacao = "Obesidade Grau III";
+    }
+
+
+    setResultado(
+      `IMC: ${imc.toFixed(2)}\nClassificação: ${classificacao}`
+    );
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Calculadora de IMC</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Peso (kg)"
+        keyboardType="numeric"
+        value={peso}
+        onChangeText={setPeso}
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Altura (m)"
+        keyboardType="numeric"
+        value={altura}
+        onChangeText={setAltura}
+      />
+
+
+      <Button title="Calcular IMC" onPress={calcularIMC} />
+
+
+      <Text style={styles.resultado}>{resultado}</Text>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: '#2773F5'
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#27ADF5'
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#27ADF5'
+  },
+
+
+  resultado: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+    padding: 20,
+    backgroundColor: '#27ADF5'
+  },
+});
+
+
+
+Questão 4 – Conversor de Temperatura
+Um aplicativo meteorológico necessita converter temperaturas entre Celsius e Fahrenheit.
+Desenvolva uma aplicação que:
+Receba uma temperatura em Celsius;
+Ao clicar em um botão, converta para Fahrenheit;
+Exiba o resultado imediatamente;
+Possua um botão para limpar os campos.
+Utilize corretamente eventos de clique.
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [celsius, setCelsius] = useState("");
+  const [resultado, setResultado] = useState("");
+
+
+  function converter() {
+    if (celsius === "") {
+      setResultado("Digite uma temperatura.");
+      return;
+    }
+
+
+    const c = parseFloat(celsius);
+
+
+    if (isNaN(c)) {
+      setResultado("Valor inválido.");
+      return;
+    }
+
+
+    const fahrenheit = (c * 9) / 5 + 32;
+    const kelvin = c + 273.15;
+
+
+    setResultado(
+      `Fahrenheit: ${fahrenheit.toFixed(2)} °F\nKelvin: ${kelvin.toFixed(2)} K`
+    );
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Conversor de Temperatura</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Temperatura em °C"
+        keyboardType="numeric"
+        value={celsius}
+        onChangeText={setCelsius}
+      />
+
+
+      <Button
+        title="Converter"
+        onPress={converter}
+      />
+
+
+      <Text style={styles.resultado}>
+        {resultado}
+      </Text>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: '#48036B'
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#E0B7EB'
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 20,
+    backgroundColor: '#E0B7EB'
+  },
+
+
+  resultado: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+    padding: 20,
+    backgroundColor: '#E0B7EB'
+  },
+});
+
+
+
+Questão 5 – Sistema de Login
+Uma empresa pretende criar um aplicativo interno para seus funcionários.
+Desenvolva uma aplicação contendo:
+Campo Usuário;
+Campo Senha;
+Botão Entrar.
+
+Considere que:
+Usuário: admin
+Senha: 1234
+Caso os dados estejam corretos, exiba uma mensagem de boas-vindas. Caso contrário,
+informe que o acesso foi negado.
+
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+} from "react-native";
+
+
+export default function App() {
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
+
+
+  function entrar() {
+    if (usuario === "" || senha === "") {
+      Alert.alert("Erro", "Preencha todos os campos.");
+      return;
+    }
+
+
+    if (usuario === "admin" && senha === "1234") {
+      Alert.alert("Sucesso", "Login realizado com sucesso!");
+    } else {
+      Alert.alert("Erro", "Usuário ou senha incorretos.");
+    }
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Sistema de Login</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Usuário"
+        value={usuario}
+        onChangeText={setUsuario}
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        secureTextEntry={true}
+        value={senha}
+        onChangeText={setSenha}
+      />
+
+
+      <Button
+        title="Entrar"
+        onPress={entrar}
+      />
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: '#1F20A6'
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#3839EB'
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#3839EB'
+  },
+});
+
+
+
+Questão 6 – Simulador de Caixa Eletrônico
+Uma instituição financeira deseja disponibilizar um simulador de saque.
+Desenvolva uma aplicação que:
+ Receba um valor de saque;
+ Verifique se o valor é múltiplo de R$10;
+ Caso seja válido, informe "Saque autorizado";
+ Caso contrário, informe que o valor é inválido.
+Utilize tratamento de eventos e estruturas condicionais.
+
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+} from "react-native";
+
+
+export default function App() {
+  const [saldo, setSaldo] = useState(1000);
+  const [valor, setValor] = useState("");
+
+
+  function sacar() {
+    if (valor === "") {
+      Alert.alert("Erro", "Informe um valor.");
+      return;
+    }
+
+
+    const saque = parseFloat(valor);
+
+
+    if (isNaN(saque) || saque <= 0) {
+      Alert.alert("Erro", "Valor inválido.");
+      return;
+    }
+
+
+    if (saque > saldo) {
+      Alert.alert("Erro", "Saldo insuficiente.");
+      return;
+    }
+
+
+    setSaldo(saldo - saque);
+    Alert.alert("Sucesso", `Saque de R$ ${saque.toFixed(2)} realizado.`);
+    setValor("");
+  }
+
+
+  function depositar() {
+    if (valor === "") {
+      Alert.alert("Erro", "Informe um valor.");
+      return;
+    }
+
+
+    const deposito = parseFloat(valor);
+
+
+    if (isNaN(deposito) || deposito <= 0) {
+      Alert.alert("Erro", "Valor inválido.");
+      return;
+    }
+
+
+    setSaldo(saldo + deposito);
+    Alert.alert("Sucesso", `Depósito de R$ ${deposito.toFixed(2)} realizado.`);
+    setValor("");
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Caixa Eletrônico</Text>
+
+
+      <Text style={styles.saldo}>
+        Saldo: R$ {saldo.toFixed(2)}
+      </Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o valor"
+        keyboardType="numeric"
+        value={valor}
+        onChangeText={setValor}
+      />
+
+
+      <View style={styles.botoes}>
+        <Button title="Depositar" onPress={depositar} />
+      </View>
+
+
+      <View style={styles.botoes}>
+        <Button title="Sacar" onPress={sacar} />
+      </View>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+
+  saldo: {
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 20,
+  },
+
+
+  botoes: {
+    marginBottom: 10,
+  },
+});
+
+
+
+Questão 7 – Aplicativo de Lista de Compras
+Um supermercado deseja um aplicativo simples para organizar compras.
+Desenvolva uma aplicação que permita:
+Inserir produtos em uma lista;
+Adicionar novos itens através de um botão;
+Exibir todos os produtos cadastrados;
+Permitir limpar completamente a lista.
+Utilize componentes de lista e eventos de clique.
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [produto, setProduto] = useState("");
+  const [lista, setLista] = useState([]);
+
+
+  function adicionarProduto() {
+    if (produto.trim() === "") {
+      return;
+    }
+
+
+    setLista([...lista, { id: Date.now().toString(), nome: produto }]);
+    setProduto("");
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Lista de Compras</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Digite um produto"
+        value={produto}
+        onChangeText={setProduto}
+      />
+
+
+      <Button
+        title="Adicionar Produto"
+        onPress={adicionarProduto}
+      />
+
+
+      <FlatList
+        data={lista}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Text style={styles.item}>• {item.nome}</Text>
+        )}
+      />
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    marginTop: 50,
+    backgroundColor: '#540F7D'
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#AC60DB'
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#E0B7EB',
+  },
+
+
+  item: {
+    fontSize: 18,
+    padding: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    backgroundColor: '#E0B7EB',
+  },
+});
+
+
+Questão 8 – Contador de Cliques
+Uma empresa de testes de interface deseja medir a interação dos usuários com um botão.
+Desenvolva uma aplicação que:
+Possua um botão "Clique Aqui";
+Conte quantas vezes o botão foi pressionado;
+Atualize automaticamente a quantidade de cliques na tela;
+Tenha um botão para reiniciar o contador.
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [contador, setContador] = useState(0);
+
+
+  function incrementar() {
+    setContador(contador + 1);
+  }
+
+
+  function decrementar() {
+    setContador(contador - 1);
+  }
+
+
+  function zerar() {
+    setContador(0);
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Contador de Cliques</Text>
+
+
+      <Text style={styles.contador}>{contador}</Text>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Incrementar"
+          onPress={incrementar}
+        />
+      </View>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Decrementar"
+          onPress={decrementar}
+        />
+      </View>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Zerar"
+          onPress={zerar}
+        />
+      </View>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+
+
+  titulo: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+
+  contador: {
+    fontSize: 50,
+    textAlign: "center",
+    marginBottom: 30,
+    fontWeight: "bold",
+  },
+
+
+  botao: {
+    marginBottom: 15,
+  },
+});
+
+
+
+
+Questão 9 – Escolha de Plano de Internet
+Uma operadora deseja disponibilizar um simulador de contratação.
+Crie uma aplicação contendo três opções de plano:
+Básico
+Intermediário
+Premium
+Ao selecionar um plano e pressionar um botão, apresente:
+Nome do plano;
+Valor mensal;
+Benefícios principais.
+Utilize componentes de seleção e tratamento de eventos.
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [plano, setPlano] = useState("");
+
+
+  function escolherPlano(tipo) {
+    setPlano(tipo);
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Escolha seu Plano</Text>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Plano Básico"
+          onPress={() => escolherPlano("Plano Básico\n100 MB\nR$ 59,90/mês")}
+        />
+      </View>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Plano Intermediário"
+          onPress={() =>
+            escolherPlano("Plano Intermediário\n300 MB\nR$ 89,90/mês")
+          }
+        />
+      </View>
+
+
+      <View style={styles.botao}>
+        <Button
+          title="Plano Premium"
+          onPress={() =>
+            escolherPlano("Plano Premium\n600 MB\nR$ 129,90/mês")
+          }
+        />
+      </View>
+
+
+      <Text style={styles.resultado}>{plano}</Text>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+
+
+  titulo: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 25,
+  },
+
+
+  botao: {
+    marginBottom: 15,
+  },
+
+
+  resultado: {
+    marginTop: 30,
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
+
+Questão 10 – Aplicativo de Controle Escolar
+Uma escola pretende desenvolver um aplicativo para cálculo da média dos alunos.
+A aplicação deverá:
+Receber três notas;
+Calcular automaticamente a média;
+Informar:
+o Aprovado;
+o Recuperação;
+o Reprovado.
+
+O cálculo deverá ocorrer quando o usuário pressionar um botão.
+Além disso, implemente um botão para limpar todos os campos.
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+} from "react-native";
+
+
+export default function App() {
+  const [nome, setNome] = useState("");
+  const [nota1, setNota1] = useState("");
+  const [nota2, setNota2] = useState("");
+  const [resultado, setResultado] = useState("");
+
+
+  function calcularMedia() {
+    if (nome === "" || nota1 === "" || nota2 === "") {
+      setResultado("Preencha todos os campos.");
+      return;
+    }
+
+
+    const n1 = parseFloat(nota1);
+    const n2 = parseFloat(nota2);
+
+
+    if (isNaN(n1) || isNaN(n2)) {
+      setResultado("Digite notas válidas.");
+      return;
+    }
+
+
+    const media = (n1 + n2) / 2;
+
+
+    let situacao = "";
+
+
+    if (media >= 7) {
+      situacao = "Aprovado";
+    } else if (media >= 5) {
+      situacao = "Recuperação";
+    } else {
+      situacao = "Reprovado";
+    }
+
+
+    setResultado(
+      `Aluno: ${nome}\nMédia: ${media.toFixed(1)}\nSituação: ${situacao}`
+    );
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Controle Escolar</Text>
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="Nome do aluno"
+        value={nome}
+        onChangeText={setNome}
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="1ª Nota"
+        keyboardType="numeric"
+        value={nota1}
+        onChangeText={setNota1}
+      />
+
+
+      <TextInput
+        style={styles.input}
+        placeholder="2ª Nota"
+        keyboardType="numeric"
+        value={nota2}
+        onChangeText={setNota2}
+      />
+
+
+      <Button
+        title="Calcular Média"
+        onPress={calcularMedia}
+      />
+
+
+      <Text style={styles.resultado}>
+        {resultado}
+      </Text>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: '#4A8BF7',
+  },
+
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+  },
+
+
+  resultado: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
+
+
+
+
+
+
+
+**********************************************************************/
+INSTITUTO FEDERAL DO AMAZONAS – CAMPUS IRANDUBA
+DISCIPLINA: Dispositivos Móveis
+PROFESSOR: Ranyere Lima
+ALUNO(A): Isabelle Christine de Jesus Duarte
+DATA:  12/ 08 /2026
+Bimestre: 3º Bimestre
+descrição: implementar I.a no projeto consumo de agua
+**********************************************************************/
+
+
+
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  Keyboard,
+  ActivityIndicator,
+  Alert,
+  StatusBar,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// =====================================================
+// OPENROUTER
+// =====================================================
+const OPENROUTER_API_KEY = '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'; 
+const MODEL = 'openai/gpt-4o-mini';
+
+const STORAGE_KEY = '@ecomonitor_historico';
+
+export default function App() {
+  const [litrosDiarios, setLitrosDiarios] = useState('');
+  const [carregando, setCarregando] = useState(false);
+  const [resultadoIA, setResultadoIA] = useState(null);
+  const [historico, setHistorico] = useState([]);
+
+  useEffect(() => {
+    carregarHistorico();
+  }, []);
+
+  const carregarHistorico = async () => {
+    try {
+      const dados = await AsyncStorage.getItem(STORAGE_KEY);
+      if (dados) {
+        setHistorico(JSON.parse(dados));
+      }
+    } catch (erro) {
+      console.log('Erro ao carregar histórico:', erro);
+    }
+  };
+
+  const salvarNoHistorico = async (analise) => {
+    try {
+      const novoItem = {
+        id: Date.now().toString(),
+        ...analise,
+        criado_em: new Date().toISOString(),
+      };
+
+      const dados = await AsyncStorage.getItem(STORAGE_KEY);
+      const lista = dados ? JSON.parse(dados) : [];
+      const novaLista = [novoItem, ...lista];
+
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(novaLista));
+      setHistorico(novaLista);
+    } catch (erro) {
+      console.log('Erro ao salvar:', erro);
+    }
+  };
+
+  const deletarAnalise = async (id) => {
+    try {
+      const novaLista = historico.filter((item) => item.id !== id);
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(novaLista));
+      setHistorico(novaLista);
+    } catch (erro) {
+      console.log('Erro ao deletar:', erro);
+    }
+  };
+
+  const limparHistorico = async () => {
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      setHistorico([]);
+    } catch (erro) {
+      console.log('Erro ao limpar:', erro);
+    }
+  };
+
+  const converterResposta = (texto) => {
+    if (!texto) throw new Error('A IA não retornou nenhum conteúdo.');
+
+    let textoLimpo = texto
+      .trim()
+      .replace(/^```json\s*/i, '')
+      .replace(/^```\s*/i, '')
+      .replace(/\s*```$/i, '')
+      .trim();
+
+    try {
+      return JSON.parse(textoLimpo);
+    } catch {
+      throw new Error('A IA retornou um formato inválido.');
+    }
+  };
+
+  const analisarConsumoComIA = async () => {
+    if (!litrosDiarios.trim()) {
+      Alert.alert('Atenção', 'Digite o consumo diário de água.');
+      return;
+    }
+
+    const litros = parseFloat(litrosDiarios.replace(',', '.'));
+
+    if (isNaN(litros) || litros <= 0) {
+      Alert.alert('Atenção', 'Digite um número válido maior que zero.');
+      return;
+    }
+
+    if (
+      !OPENROUTER_API_KEY ||
+      OPENROUTER_API_KEY.includes('SUA_CHAVE') ||
+      OPENROUTER_API_KEY.includes(' ')
+    ) {
+      Alert.alert(
+        'API não configurada',
+        'Coloque sua chave do OpenRouter na variável OPENROUTER_API_KEY.'
+      );
+      return;
+    }
+
+    Keyboard.dismiss();
+    setCarregando(true);
+    setResultadoIA(null);
+
+    const prompt = `
+Você é a IA do aplicativo EcoMonitor IA.
+O usuário informou um consumo de ${litros} litros de água por dia.
+
+Faça uma análise simples.
+Retorne SOMENTE JSON válido nesta estrutura:
+
+{
+  "semanal": "1050 litros",
+  "classificacao": "Consumo moderado",
+  "cor": "#3F51B5",
+  "descricao": "Explicação curta do que o consumo significa.",
+  "dica": "Dica prática para economizar água."
+}
+
+Não coloque texto fora do JSON.
+`;
+
+    try {
+      const resposta = await fetch(
+        'https://openrouter.ai/api/v1/chat/completions',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+            'HTTP-Referer': 'https://snack.expo.dev',
+            'X-Title': 'EcoMonitor IA',
+          },
+          body: JSON.stringify({
+            model: MODEL,
+            messages: [{ role: 'user', content: prompt }],
+            response_format: { type: 'json_object' },
+            max_tokens: 400,
+            temperature: 0.3,
+          }),
+        }
+      );
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok) {
+        throw new Error(
+          dados?.error?.message || `Erro HTTP ${resposta.status}`
+        );
+      }
+
+      const textoIA = dados?.choices?.[0]?.message?.content;
+      if (!textoIA) {
+        throw new Error('A IA não retornou resposta.');
+      }
+
+      const resultado = converterResposta(textoIA);
+
+      const resultadoFinal = {
+        litrosDiarios: litros,
+        semanal: resultado.semanal || `${litros * 7} litros`,
+        classificacao: resultado.classificacao || 'Consumo analisado',
+        cor: resultado.cor || '#3F51B5',
+        descricao:
+          resultado.descricao ||
+          'A IA analisou o consumo informado.',
+        dica: resultado.dica || 'Evite desperdícios de água.',
+      };
+
+      setResultadoIA(resultadoFinal);
+      await salvarNoHistorico(resultadoFinal);
+    } catch (erro) {
+      console.log('ERRO:', erro);
+      Alert.alert(
+        'Erro',
+        erro?.message || 'Não foi possível conectar ao OpenRouter.'
+      );
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const novaAnalise = () => {
+    setResultadoIA(null);
+    setLitrosDiarios('');
+  };
+
+  const confirmarLimpar = () => {
+    Alert.alert('Limpar histórico', 'Apagar todas as análises?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Apagar',
+        style: 'destructive',
+        onPress: limparHistorico,
+      },
+    ]);
+  };
+
+  const confirmarDeletar = (id) => {
+    Alert.alert('Excluir', 'Remover esta análise?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Excluir',
+        style: 'destructive',
+        onPress: () => deletarAnalise(id),
+      },
+    ]);
+  };
+
+  const formatarData = (iso) => {
+    try {
+      return new Date(iso).toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    } catch {
+      return '';
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F0F2F5" />
+
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>EcoMonitor IA</Text>
+          <Text style={styles.subtitle}>Monitore seu consumo de água</Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.label}>Consumo diário</Text>
+          <Text style={styles.description}>
+            Informe quantos litros de água são consumidos por dia.
+          </Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Ex: 150"
+            placeholderTextColor="#999"
+            keyboardType="decimal-pad"
+            value={litrosDiarios}
+            onChangeText={setLitrosDiarios}
+            editable={!carregando}
+          />
+          <Text style={styles.unit}>litros por dia</Text>
+
+          <TouchableOpacity
+            style={[styles.button, carregando && styles.buttonDisabled]}
+            onPress={analisarConsumoComIA}
+            disabled={carregando}
+            activeOpacity={0.8}
+          >
+            {carregando ? (
+              <>
+                <ActivityIndicator color="#FFF" size="small" />
+                <Text style={styles.buttonText}>Analisando...</Text>
+              </>
+            ) : (
+              <Text style={styles.buttonText}>Analisar consumo</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        {resultadoIA && (
+          <View
+            style={[styles.resultCard, { borderLeftColor: resultadoIA.cor }]}
+          >
+            <Text style={styles.resultHeader}>RESULTADO DA IA</Text>
+            <Text style={[styles.resultTitle, { color: resultadoIA.cor }]}>
+              {resultadoIA.classificacao}
+            </Text>
+
+            <View style={styles.divider} />
+
+            <Text style={styles.resultLabel}>Consumo semanal</Text>
+            <Text style={styles.weeklyValue}>{resultadoIA.semanal}</Text>
+
+            <Text style={styles.resultLabel}> O que aconteceu</Text>
+            <Text style={styles.feedbackText}>{resultadoIA.descricao}</Text>
+
+            <Text style={styles.resultLabel}> Dica</Text>
+            <Text style={styles.feedbackText}>{resultadoIA.dica}</Text>
+
+            <TouchableOpacity style={styles.newButton} onPress={novaAnalise}>
+              <Text style={styles.newButtonText}>Nova análise</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <View style={styles.historicoHeader}>
+          <Text style={styles.historicoTitle}>Histórico</Text>
+          {historico.length > 0 && (
+            <TouchableOpacity onPress={confirmarLimpar}>
+              <Text style={styles.limparTexto}>Limpar</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {historico.length === 0 ? (
+          <View style={styles.infoCard}>
+            <Text style={styles.infoText}>
+              Nenhuma análise salva ainda.
+            </Text>
+          </View>
+        ) : (
+          historico.map((item) => (
+            <View
+              key={item.id}
+              style={[styles.historicoCard, { borderLeftColor: item.cor }]}
+            >
+              <View style={styles.historicoTop}>
+                <Text style={[styles.historicoClass, { color: item.cor }]}>
+                  {item.classificacao}
+                </Text>
+                <TouchableOpacity onPress={() => confirmarDeletar(item.id)}>
+                  <Text style={styles.deletarTexto}>Excluir</Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.historicoLitros}>
+                {item.litrosDiarios} L/dia → {item.semanal}
+              </Text>
+
+              {item.descricao ? (
+                <Text style={styles.historicoDesc} numberOfLines={2}>
+                  {item.descricao}
+                </Text>
+              ) : null}
+
+              <Text style={styles.historicoData}>
+                {formatarData(item.criado_em)}
+              </Text>
+            </View>
+          ))
+        )}
+
+        <View style={styles.infoCard}>
+          <Text style={styles.infoTitle}> EcoMonitor IA</Text>
+          <Text style={styles.infoText}>
+            Histórico salvo no celular com AsyncStorage (funciona no Snack).
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#F0F2F5' },
+  scrollContent: { padding: 20, paddingBottom: 40 },
+  header: { alignItems: 'center', marginTop: 20, marginBottom: 25 },
+  title: { fontSize: 28, fontWeight: '800', color: '#1A237E' },
+  subtitle: { marginTop: 6, fontSize: 14, color: '#777' },
+  card: {
+    backgroundColor: '#FFF',
+    borderRadius: 18,
+    padding: 20,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  label: { fontSize: 17, fontWeight: '700', color: '#222', marginBottom: 6 },
+  description: { fontSize: 14, color: '#777', marginBottom: 14, lineHeight: 20 },
+  input: {
+    borderWidth: 1.5,
+    borderColor: '#E0E0E0',
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    fontSize: 17,
+    backgroundColor: '#FAFAFA',
+    color: '#222',
+  },
+  unit: { fontSize: 12, color: '#888', marginTop: 4, marginBottom: 16 },
+  button: {
+    backgroundColor: '#3F51B5',
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  buttonDisabled: { opacity: 0.7 },
+  buttonText: { color: '#FFF', fontSize: 16, fontWeight: 'bold' },
+  resultCard: {
+    backgroundColor: '#FFF',
+    borderRadius: 14,
+    padding: 18,
+    marginTop: 22,
+    borderLeftWidth: 7,
+    elevation: 3,
+  },
+  resultHeader: { fontSize: 12, fontWeight: '700', color: '#888', marginBottom: 6 },
+  resultTitle: { fontSize: 20, fontWeight: '800' },
+  divider: { height: 1, backgroundColor: '#EEE', marginVertical: 14 },
+  resultLabel: { fontSize: 13, fontWeight: '700', color: '#666', marginTop: 8 },
+  weeklyValue: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#1A237E',
+    marginTop: 4,
+    marginBottom: 12,
+  },
+  feedbackText: { marginTop: 6, fontSize: 15, lineHeight: 21, color: '#333' },
+  newButton: {
+    marginTop: 18,
+    paddingVertical: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#3F51B5',
+    alignItems: 'center',
+  },
+  newButtonText: { color: '#3F51B5', fontWeight: '700', fontSize: 14 },
+  historicoHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 28,
+    marginBottom: 12,
+  },
+  historicoTitle: { fontSize: 17, fontWeight: '700', color: '#1A237E' },
+  limparTexto: { color: '#E53935', fontWeight: '600', fontSize: 14 },
+  historicoCard: {
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 10,
+    borderLeftWidth: 5,
+  },
+  historicoTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  historicoClass: { fontSize: 15, fontWeight: '700' },
+  deletarTexto: { color: '#E53935', fontSize: 13, fontWeight: '600' },
+  historicoLitros: { marginTop: 5, fontSize: 14, color: '#444', fontWeight: '600' },
+  historicoDesc: { marginTop: 5, fontSize: 13, color: '#666', lineHeight: 18 },
+  historicoData: { marginTop: 7, fontSize: 12, color: '#999' },
+  infoCard: {
+    marginTop: 18,
+    padding: 16,
+    backgroundColor: '#E8EAF6',
+    borderRadius: 14,
+  },
+  infoTitle: { fontSize: 15, fontWeight: '700', color: '#1A237E', marginBottom: 6 },
+  infoText: { fontSize: 13, lineHeight: 18, color: '#4A4A4A' },
+});
+
+
+
+**********************************************************************/
+INSTITUTO FEDERAL DO AMAZONAS – CAMPUS IRANDUBA
+DISCIPLINA: Dispositivos Móveis
+PROFESSOR: Ranyere Lima
+ALUNO(A): Isabelle Christine de Jesus Duarte
+DATA:  26/ 08 /2026
+Bimestre: 3º Bimestre
+descrição: aula assincrona
+**********************************************************************/
+
+import React, { useState } from 'react';
+
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Alert,
+  Linking,
+} from 'react-native';
+
+export default function App() {
+  const [tela, setTela] = useState('inicio');
+
+  // =====================================================
+  // PONTOS TURÍSTICOS
+  // =====================================================
+
+  const lugaresTuristicos = [
+    {
+      id: '1',
+      nome: 'Ruínas do Paricatuba',
+      descricao:
+        'As ruínas de Paricatuba são um patrimônio histórico do Amazonas.',
+      imagem:
+        'https://tse2.mm.bing.net/th/id/OIP.12Ky5vi46JXj7AvHdZVDkAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Ruínas, paricatuba, Iranduba',
+    },
+
+    {
+      id: '2',
+      nome: 'Cachoeira do Castanho',
+      descricao:
+        'Atrativo natural da região de Iranduba, com água, floresta e uma bela paisagem amazônica.',
+      imagem:
+        'https://tse1.mm.bing.net/th/id/OIP.cWiSG7dXS-yn3zs9Nn9RQQHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Cachoeira do Castanho, Iranduba, Amazonas',
+    },
+
+    {
+      id: '3',
+      nome: 'Praia do Açutuba',
+      descricao:
+        'Uma das praias de água doce conhecidas da região, ideal para aproveitar a paisagem e a natureza amazônica.',
+      imagem:
+        'https://3.bp.blogspot.com/-8MEiZdA3WNQ/ViUw9yV71kI/AAAAAAAAGpI/-iZGANmC8Xc/s1600/089.JPG',
+      destino: 'Praia do Açutuba, Iranduba, Amazonas',
+    },
+
+    {
+      id: '4',
+      nome: 'Praia do Japonês',
+      descricao:
+        'Praia de água doce da região amazônica, procurada para lazer e contato com a natureza.',
+      imagem:
+        'https://tse3.mm.bing.net/th/id/OIP.9dChtCss0ydeXu5dEGr0gAHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Praia do Japonês, Iranduba, Amazonas',
+    },
+
+    {
+      id: '5',
+      nome: 'Lago Janauari',
+      descricao:
+        'Área de beleza natural conhecida pela floresta, pelos passeios de barco e pelas famosas vitórias-régias.',
+      imagem:
+        'https://tse3.mm.bing.net/th/id/OIP.U3jfE4bNZSsPhQPj225bFAHaEz?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Lago Janauari, Iranduba, Amazonas',
+    },
+  ];
+
+  // =====================================================
+  // TRANSPORTES
+  // =====================================================
+
+  const transportes = [
+    {
+      id: '1',
+      nome: 'Ônibus',
+      descricao:
+        'Transporte terrestre utilizado para deslocamentos entre Iranduba, Manaus e outras localidades.',
+      imagem:
+        'https://tse3.mm.bing.net/th/id/OIP.O207H35bc1dz-hIcB99pBgHaIF?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      destino: 'Iranduba, Amazonas, Brasil',
+    },
+
+    {
+      id: '2',
+      nome: 'Barco',
+      descricao:
+        'Transporte fluvial muito utilizado na região amazônica para deslocamentos pelos rios.',
+      imagem:
+        'https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazon%20boat%20in%20Rio%20Negro%20River%20Manaus%20AM%29%20-%20panoramio.jpg',
+      destino: 'Porto de São Raimundo, Manaus, Amazonas',
+    },
+  ];
+
+  // =====================================================
+  // HORÁRIOS
+  // =====================================================
+
+  const horarios = [
+    {
+      id: '1',
+      tipo: 'Ônibus',
+      horario: '07:00',
+    },
+    {
+      id: '2',
+      tipo: 'Ônibus',
+      horario: '10:00',
+    },
+    {
+      id: '3',
+      tipo: 'Ônibus',
+      horario: '14:00',
+    },
+    {
+      id: '4',
+      tipo: 'Ônibus',
+      horario: '17:00',
+    },
+    {
+      id: '5',
+      tipo: 'Barco',
+      horario: '08:00',
+    },
+    {
+      id: '6',
+      tipo: 'Barco',
+      horario: '14:00',
+    },
+    {
+      id: '7',
+      tipo: 'Barco',
+      horario: '17:00',
+    },
+  ];
+
+  // =====================================================
+  // PONTOS DE EMBARQUE
+  // =====================================================
+
+  const pontosEmbarque = [
+    {
+      id: '1',
+      nome: 'Terminal de ônibus',
+      descricao:
+        'Ponto de referência para embarque de passageiros em ônibus.',
+      destino: 'Iranduba, Amazonas, Brasil',
+      tipo: 'Ônibus',
+    },
+
+    {
+      id: '2',
+      nome: 'Porto de São Raimundo',
+      descricao:
+        'Porto localizado em Manaus, utilizado para transporte de passageiros e cargas.',
+      destino: 'Porto de São Raimundo, Manaus, Amazonas',
+      tipo: 'Barco',
+    },
+  ];
+
+  // =====================================================
+  // COMIDAS REGIONAIS
+  // =====================================================
+
+  const comidas = [
+    {
+      id: '1',
+      nome: 'Tambaqui Assado',
+      descricao:
+        'Peixe muito apreciado no Amazonas, tradicionalmente preparado assado na brasa.',
+      imagem:
+        'https://i.ytimg.com/vi/acxLC9spJww/hqdefault.jpg',
+    },
+
+    {
+      id: '2',
+      nome: 'Tacacá',
+      descricao:
+        'Prato tradicional amazônico preparado com tucupi, jambu, goma de mandioca e camarão.',
+      imagem:
+        'https://commons.wikimedia.org/wiki/Special:Redirect/file/Tacac%C3%A1%20prato%20t%C3%ADpico%20de%20Manaus.jpg',
+    },
+
+    {
+      id: '3',
+      nome: 'Pirarucu',
+      descricao:
+        'Um dos grandes peixes da Amazônia, utilizado em diferentes pratos da culinária regional.',
+      imagem:
+        'https://www.acritica.com/image/policy:1.160942.1647109721:1647109721/image.jpg?f=2x1&w=1000&',
+    },
+
+    {
+      id: '4',
+      nome: 'Tapioca',
+      descricao:
+        'Preparação feita com goma de mandioca, muito consumida no café da manhã e em lanches.',
+      imagem:
+        'https://tse3.mm.bing.net/th/id/OIP.vMiF8aF47bdI1n4Z0sFPRgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+    },
+  ];
+
+  // =====================================================
+  // ABRIR MAPA
+  // =====================================================
+
+  const abrirRota = async (destino) => {
+    const destinoCodificado = encodeURIComponent(destino);
+
+    const url =
+      `https://www.bing.com/maps/directions?FORM=HDRSC6&style=r&rtp=%7Epos.-3.275820255279541_-60.186744689941406_Iranduba%252C%2520Amazonas_Iranduba%252C%2520Amazonas_&mode=t&cp=-3.275880%7E-60.186735&lvl=15.7${destinoCodificado}`;
+
+    try {
+      const podeAbrir = await Linking.canOpenURL(url);
+
+      if (podeAbrir) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(
+          'Mapa',
+          'Não foi possível abrir o mapa neste dispositivo.'
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        'Erro',
+        'Não foi possível abrir a localização.'
+      );
+    }
+  };
+
+  // =====================================================
+  // HORÁRIOS
+  // =====================================================
+
+  const verHorarios = () => {
+    Alert.alert(
+      'Horários de transporte',
+      'ÔNIBUS\n\n' +
+        '07:00\n' +
+        '10:00\n' +
+        '14:00\n' +
+        '17:00\n\n' +
+        'BARCO\n\n' +
+        '08:00\n' +
+        '14:00\n' +
+        '17:00\n\n' +
+        'Horários demonstrativos. Consulte o responsável pelo transporte para confirmar os horários reais.'
+    );
+  };
+
+  // =====================================================
+  // TELA INICIAL
+  // =====================================================
+
+  if (tela === 'inicio') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Iranduba Turismo
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Descubra as belezas do Amazonas!
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.welcome}>
+            Bem-vindo! 🌿
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça os principais pontos turísticos,
+            comidas regionais e opções de transporte
+            da região de Iranduba.
+          </Text>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('pontos')}
+          >
+            <Text style={styles.buttonText}>
+              🗺️ Pontos Turísticos
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('transporte')}
+          >
+            <Text style={styles.buttonText}>
+              🚌 Transporte
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('comidas')}
+          >
+            <Text style={styles.buttonText}>
+              🍽️ Comidas Regionais
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setTela('sobre')}
+          >
+            <Text style={styles.buttonText}>
+              🌴 Sobre Iranduba
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.info}>
+          <Text style={styles.infoTitle}>
+            Explore Iranduba 🌿
+          </Text>
+
+          <Text style={styles.infoText}>
+            Natureza, rios, praias, cachoeiras,
+            gastronomia e cultura amazônica
+            esperando por você.
+          </Text>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // PONTOS TURÍSTICOS
+  // =====================================================
+
+  if (tela === 'pontos') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Pontos Turísticos
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Lugares para conhecer
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Lugares para visitar
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça alguns dos lugares que podem
+            fazer parte da sua viagem.
+          </Text>
+
+          {lugaresTuristicos.map((lugar) => (
+            <View
+              key={lugar.id}
+              style={styles.turismoCard}
+            >
+              <Image
+                source={{ uri: lugar.imagem }}
+                style={styles.turismoImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.turismoConteudo}>
+                <Text style={styles.placeTitle}>
+                  {lugar.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {lugar.descricao}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(lugar.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver rota no mapa
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // TRANSPORTE
+  // =====================================================
+
+  if (tela === 'transporte') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Transporte
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Ônibus e barco
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Transporte da região
+          </Text>
+
+          <Text style={styles.description}>
+            Confira as opções de transporte
+            terrestre e fluvial.
+          </Text>
+
+          {transportes.map((transporte) => (
+            <View
+              key={transporte.id}
+              style={styles.transporteCard}
+            >
+              <Image
+                source={{ uri: transporte.imagem }}
+                style={styles.transporteImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.transporteConteudo}>
+                <Text style={styles.placeTitle}>
+                  {transporte.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {transporte.descricao}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(transporte.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver localização
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <Text style={styles.sectionTitle}>
+            Horários de saída
+          </Text>
+
+          <View style={styles.horariosBox}>
+            {horarios.map((item) => (
+              <View
+                key={item.id}
+                style={styles.horarioLinha}
+              >
+                <Text style={styles.horarioTipo}>
+                  {item.tipo}
+                </Text>
+
+                <Text style={styles.horarioHora}>
+                  {item.horario}
+                </Text>
+              </View>
+            ))}
+
+            <Text style={styles.avisoHorario}>
+              Horários demonstrativos. Consulte os
+              responsáveis pelo transporte antes da viagem.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.smallButton}
+            onPress={verHorarios}
+          >
+            <Text style={styles.buttonText}>
+              🕐 Ver horários
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.sectionTitle}>
+            Pontos de embarque
+          </Text>
+
+          {pontosEmbarque.map((ponto) => (
+            <View
+              key={ponto.id}
+              style={styles.embarqueCard}
+            >
+              <View style={styles.embarqueIcon}>
+                <Text style={styles.embarqueEmoji}>
+                  {ponto.tipo === 'Ônibus'
+                    ? '🚌'
+                    : '🚤'}
+                </Text>
+              </View>
+
+              <View style={styles.embarqueConteudo}>
+                <Text style={styles.placeTitle}>
+                  {ponto.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {ponto.descricao}
+                </Text>
+
+                <Text style={styles.tipoTransporte}>
+                  Transporte: {ponto.tipo}
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() =>
+                    abrirRota(ponto.destino)
+                  }
+                >
+                  <Text style={styles.buttonText}>
+                    📍 Ver localização
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+
+          <View style={styles.infoInterna}>
+            <Text style={styles.infoTitle}>
+              ⚠️ Informações
+            </Text>
+
+            <Text style={styles.infoText}>
+              Os horários e locais podem variar.
+              Confirme as informações antes de viajar.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // COMIDAS REGIONAIS
+  // =====================================================
+
+  if (tela === 'comidas') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Comidas Regionais
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Sabores da Amazônia
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>
+            Pratos típicos 🍽️
+          </Text>
+
+          <Text style={styles.description}>
+            Conheça alguns sabores tradicionais
+            da culinária amazônica.
+          </Text>
+
+          {comidas.map((comida) => (
+            <View
+              key={comida.id}
+              style={styles.comidaCard}
+            >
+              <Image
+                source={{ uri: comida.imagem }}
+                style={styles.comidaImagem}
+                resizeMode="cover"
+              />
+
+              <View style={styles.comidaConteudo}>
+                <Text style={styles.comidaNome}>
+                  {comida.nome}
+                </Text>
+
+                <Text style={styles.placeText}>
+                  {comida.descricao}
+                </Text>
+              </View>
+            </View>
+          ))}
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  // =====================================================
+  // SOBRE IRANDUBA
+  // =====================================================
+
+  if (tela === 'sobre') {
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            Sobre Iranduba
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Conheça nossa região 🌴
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+
+          <Image
+            source={{
+              uri:
+                'https://tse4.mm.bing.net/th/id/OIP.TBzOVDV2d2zDeNLuFhfVDQHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+            }}
+            style={styles.sobreImagem}
+            resizeMode="cover"
+          />
+
+          <Text style={styles.sobreTitulo}>
+            Bem-vindo a Iranduba! 💚
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            Iranduba é um município do Amazonas
+            localizado na Região Metropolitana de Manaus.
+            A cidade é cercada por paisagens naturais
+            e possui uma forte relação com os rios,
+            a floresta e a cultura amazônica.
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            O município possui praias de água doce,
+            cachoeiras, áreas de floresta, comunidades
+            e diferentes experiências de turismo
+            de natureza.
+          </Text>
+
+          <Text style={styles.sobreTexto}>
+            A região também se destaca pela produção
+            agrícola, pelo artesanato e pela gastronomia
+            baseada em peixes e outros produtos
+            amazônicos.
+          </Text>
+
+          <Text style={styles.sectionTitle}>
+            🌿 O que você encontra em Iranduba
+          </Text>
+
+          <View style={styles.destaquesContainer}>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🌳
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Natureza
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Florestas e belas paisagens amazônicas.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🏖️
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Praias
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Praias de água doce para aproveitar.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🚤
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Rios
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Passeios e experiências pelos rios.
+              </Text>
+            </View>
+
+            <View style={styles.destaqueCard}>
+              <Text style={styles.destaqueEmoji}>
+                🍽️
+              </Text>
+
+              <Text style={styles.destaqueTitulo}>
+                Gastronomia
+              </Text>
+
+              <Text style={styles.destaqueTexto}>
+                Sabores tradicionais da Amazônia.
+              </Text>
+            </View>
+
+          </View>
+
+          <View style={styles.janauariBox}>
+            <Text style={styles.janauariTitulo}>
+              🌿 Destaque: Lago Janauari
+            </Text>
+
+            <Text style={styles.janauariTexto}>
+              O Lago Janauari é um dos destaques
+              naturais da região. O local reúne
+              floresta, rios e belas paisagens,
+              proporcionando contato com a natureza
+              amazônica.
+            </Text>
+          </View>
+
+          <View style={styles.fraseBox}>
+            <Text style={styles.frase}>
+              Conheça Iranduba, viva a Amazônia
+              e ajude a preservar esse lugar! 🌱💚
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.buttonText}>
+              ⬅️ Voltar
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
+    );
+  }
+
+  return null;
+}
+
+// =====================================================
+// ESTILOS
+// =====================================================
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E8F5E9',
+  },
+
+  contentContainer: {
+    paddingBottom: 40,
+  },
+
+  header: {
+    backgroundColor: '#176B3A',
+    paddingTop: 55,
+    paddingBottom: 30,
+    paddingHorizontal: 20,
+  },
+
+  logo: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+
+  subtitle: {
+    color: '#DDF5E3',
+    fontSize: 16,
+    marginTop: 8,
+  },
+
+  card: {
+    backgroundColor: '#FFFFFF',
+    margin: 18,
+    padding: 20,
+    borderRadius: 18,
+    elevation: 4,
+  },
+
+  welcome: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 10,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 15,
+  },
+
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#444444',
+    marginBottom: 20,
+  },
+
+  texto: {
+    fontSize: 17,
+    lineHeight: 27,
+    color: '#333333',
+    marginBottom: 15,
+  },
+
+  button: {
+    backgroundColor: '#218C4B',
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 12,
+    alignItems: 'center',
+  },
+
+  smallButton: {
+    backgroundColor: '#218C4B',
+    padding: 12,
+    borderRadius: 10,
+    marginTop: 12,
+    alignItems: 'center',
+  },
+
+  backButton: {
+    backgroundColor: '#145A32',
+    padding: 15,
+    borderRadius: 12,
+    marginTop: 25,
+    alignItems: 'center',
+  },
+
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  info: {
+    margin: 18,
+    padding: 20,
+    backgroundColor: '#CDEFD5',
+    borderRadius: 18,
+  },
+
+  infoInterna: {
+    marginTop: 18,
+    padding: 16,
+    backgroundColor: '#DDF3E2',
+    borderRadius: 14,
+  },
+
+  infoTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#145A32',
+    marginBottom: 8,
+  },
+
+  infoText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#333333',
+  },
+
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginTop: 15,
+    marginBottom: 12,
+  },
+
+  placeTitle: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 8,
+  },
+
+  placeText: {
+    fontSize: 15,
+    lineHeight: 21,
+    color: '#444444',
+  },
+
+  // PONTOS TURÍSTICOS
+
+  turismoCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 20,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+
+  turismoImagem: {
+    width: '100%',
+    height: 220,
+    backgroundColor: '#DDEFE1',
+  },
+
+  turismoConteudo: {
+    padding: 16,
+  },
+
+  // TRANSPORTE
+
+  transporteCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 20,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+
+  transporteImagem: {
+    width: '100%',
+    height: 220,
+    backgroundColor: '#DDEFE1',
+  },
+
+  transporteConteudo: {
+    padding: 16,
+  },
+
+  horariosBox: {
+    backgroundColor: '#E8F5E9',
+    padding: 16,
+    borderRadius: 14,
+    marginBottom: 15,
+  },
+
+  horarioLinha: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+
+  horarioTipo: {
+    fontSize: 15,
+    color: '#333333',
+  },
+
+  horarioHora: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#176B3A',
+  },
+
+  avisoHorario: {
+    fontSize: 13,
+    color: '#666666',
+    marginTop: 8,
+    lineHeight: 19,
+  },
+
+  embarqueCard: {
+    flexDirection: 'row',
+    backgroundColor: '#F1F8F3',
+    padding: 15,
+    borderRadius: 14,
+    marginBottom: 15,
+  },
+
+  embarqueIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#CDEFD5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+
+  embarqueEmoji: {
+    fontSize: 23,
+  },
+
+  embarqueConteudo: {
+    flex: 1,
+  },
+
+  tipoTransporte: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginTop: 10,
+  },
+
+  // COMIDAS
+
+  comidaCard: {
+    backgroundColor: '#F1F8F3',
+    borderRadius: 16,
+    marginBottom: 22,
+    overflow: 'hidden',
+    elevation: 4,
+  },
+
+  comidaImagem: {
+    width: '100%',
+    height: 230,
+    backgroundColor: '#DDEFE1',
+  },
+
+  comidaConteudo: {
+    padding: 16,
+  },
+
+  comidaNome: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 8,
+  },
+
+  // SOBRE IRANDUBA
+
+  sobreImagem: {
+    width: '100%',
+    height: 240,
+    borderRadius: 15,
+    marginBottom: 18,
+    backgroundColor: '#DDEFE1',
+  },
+
+  sobreTitulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 12,
+  },
+
+  sobreTexto: {
+    fontSize: 16,
+    lineHeight: 25,
+    color: '#444444',
+    marginBottom: 14,
+  },
+
+  destaquesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+
+  destaqueCard: {
+    width: '48%',
+    backgroundColor: '#E8F5E9',
+    padding: 15,
+    borderRadius: 15,
+    marginBottom: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#C8E6C9',
+  },
+
+  destaqueEmoji: {
+    fontSize: 32,
+    marginBottom: 7,
+  },
+
+  destaqueTitulo: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#176B3A',
+    marginBottom: 5,
+  },
+
+  destaqueTexto: {
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    color: '#555555',
+  },
+
+  janauariBox: {
+    backgroundColor: '#D5F0DA',
+    padding: 18,
+    borderRadius: 16,
+    marginTop: 18,
+    borderLeftWidth: 5,
+    borderLeftColor: '#176B3A',
+  },
+
+  janauariTitulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#145A32',
+    marginBottom: 8,
+  },
+
+  janauariTexto: {
+    fontSize: 15,
+    lineHeight: 23,
+    color: '#3D3D3D',
+  },
+
+  fraseBox: {
+    backgroundColor: '#176B3A',
+    padding: 20,
+    borderRadius: 16,
+    marginTop: 18,
+  },
+
+  frase: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    lineHeight: 26,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});
 
